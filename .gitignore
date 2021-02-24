@@ -1,7 +1,9 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /TestingWorkshop/TestingWorkshop/obj
 /.vs
 /TestingWorkshop/.vs/TestingWorkshop/v16
+*.dll
+/bin
