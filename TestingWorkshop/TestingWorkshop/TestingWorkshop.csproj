@@ -15,7 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NsTestFrameworkUI" Version="1.21.211.7" />
+    <PackageReference Include="NsTestFrameworkUI" Version="1.21.224.1" />
   </ItemGroup>
 
   <ItemGroup>
