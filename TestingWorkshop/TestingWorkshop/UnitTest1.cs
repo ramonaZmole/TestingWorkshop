@@ -8,7 +8,7 @@ namespace TestingWorkshop
         [TestMethod]
         public void TestMethod1()
         {
-            //testing
+
         }
     }
 }
