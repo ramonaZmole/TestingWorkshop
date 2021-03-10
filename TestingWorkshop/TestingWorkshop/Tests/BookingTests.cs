@@ -16,7 +16,9 @@ namespace TestingWorkshop.Tests
         [TestMethod]
         public void WhenBookingRoomSuccessMessageShouldBeDisplayedTest()
         {
-            WaitHelpers.ExplicitWait();
+            Pages.HomePage.ClickBookThisRoomButton();
+            Pages.HomePage.InsertContactData("First Name", "Last Name", "test@g.com","4581555");
+            Pages.HomePage.ClickBookRoom();
         }
     }
 }
