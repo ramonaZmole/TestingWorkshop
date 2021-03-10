@@ -10,6 +10,6 @@ namespace TestingWorkshop.Tests
 {
     public static class Pages
     {
-        public static Homapage HomePage = PageHelpers.InitPage(new Homapage());
+        public static Homepage HomePage = PageHelpers.InitPage(new Homepage());
     }
 }

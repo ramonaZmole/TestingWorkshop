@@ -10,7 +10,7 @@ using OpenQA.Selenium.Interactions;
 
 namespace TestingWorkshop.Pages
 {
-    public class Homapage
+    public class Homepage
     {
         #region Selectors
 
