@@ -11,10 +11,13 @@ namespace TestingWorkshop.Helpers
     public class BaseTest : NsTestFrameworkUI.BaseTest
     {
         [TestInitialize]
-        public void TestInitialize()
+        public virtual void TestInitialize()
         {
             Browser.InitializeDriver();
             Browser.GoTo("https://automationintesting.online/#/");
+
         }
+
+
     }
 }

@@ -16,7 +16,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="NsTestFrameworkApi" Version="1.21.224.1" />
     <PackageReference Include="NsTestFrameworkUI" Version="1.21.224.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Helpers\ApiResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApiResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Helpers\ApiResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApiResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

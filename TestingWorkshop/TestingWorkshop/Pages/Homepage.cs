@@ -24,10 +24,10 @@ namespace TestingWorkshop.Pages
         private readonly By _bookRoomButton = By.CssSelector(".btn-outline-primary.book-room");
         private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
 
-
+        private readonly By _succesMessage = By.CssSelector(".col-sm-6.text-center > h3");
         #endregion
 
-
+        
         public void ClickBookThisRoomButton()
         {
             _bookThisRoomButton.ActionClick();
@@ -59,6 +59,18 @@ namespace TestingWorkshop.Pages
                   .Build()
                   .Perform();
         }
+
+        public bool IsSuccesfullBooking()
+        {
+            return _succesMessage.GetText().Equals("Booking Successful!");
+        }
+
+
+
+
+
+
+
 
     }
 
