@@ -25,12 +25,13 @@ namespace TestingWorkshop.Pages
         private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
 
         private readonly By _succesMessage = By.CssSelector(".col-sm-6.text-center > h3");
+        private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
         #endregion
 
         
-        public void ClickBookThisRoomButton()
+        public void ClickBookRoom()
         {
-            _bookThisRoomButton.ActionClick();
+            _bookRoomButton.ActionClick();
         }
 
         public void InsertContactData(string firstName, string lastName, string email, string phone)
@@ -41,9 +42,11 @@ namespace TestingWorkshop.Pages
             _phoneInput.ActionSendKeys(phone);
         }
 
-        public void ClickBookRoom()
+        public void ClickBookThisRoomButton()
         {
-            _bookRoomButton.ActionClick();
+            //_bookRoomButton.ActionClick();
+            var roomButtons = _bookRoomButtons.GetElements();
+            roomButtons.Last().Click();
         }
 
         public void SelectDates()
