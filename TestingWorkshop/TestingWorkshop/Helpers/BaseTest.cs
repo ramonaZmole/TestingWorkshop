@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NsTestFrameworkUI.Helpers;
 
 namespace TestingWorkshop.Helpers
@@ -14,7 +9,7 @@ namespace TestingWorkshop.Helpers
         public virtual void TestInitialize()
         {
             Browser.InitializeDriver();
-            Browser.GoTo("https://automationintesting.online/#/");
+            Browser.GoTo(Constants.Url);
 
         }
 
