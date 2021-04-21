@@ -7,6 +7,7 @@ using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using TestingWorkshop.Helpers.Model;
 
 namespace TestingWorkshop.Pages
 {
@@ -34,12 +35,14 @@ namespace TestingWorkshop.Pages
             _bookRoomButton.ActionClick();
         }
 
-        public void InsertContactData(string firstName, string lastName, string email, string phone)
+        internal void CompleteBookingDetails(UserModel userModel)
         {
-            _firstNameInput.ActionSendKeys(firstName);
-            _lastNameInput.ActionSendKeys(lastName);
-            _emailInput.ActionSendKeys(email);
-            _phoneInput.ActionSendKeys(phone);
+            _firstNameInput.ActionSendKeys(userModel.FirstName);
+            _lastNameInput.ActionSendKeys(userModel.LastName);
+            _emailInput.ActionSendKeys(userModel.Email);
+            _phoneInput.ActionSendKeys(userModel.ContactPhone);
+
+            SelectDates();
         }
 
         public void ClickBookThisRoomButton()
@@ -49,11 +52,9 @@ namespace TestingWorkshop.Pages
             roomButtons.Last().Click();
         }
 
-        public void SelectDates()
+        private void SelectDates()
         {
             var actions = new Actions(Browser.WebDriver);
-
-            var location = Browser.WebDriver.FindElement(_startDate).Location;
 
             actions.ClickAndHold(Browser.WebDriver.FindElement(_startDate))
                   .MoveByOffset(20, 10)
