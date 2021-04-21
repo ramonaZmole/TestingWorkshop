@@ -23,7 +23,6 @@ namespace TestingWorkshop.Pages
         private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
         #endregion
 
-
         public void ClickBookRoom()
         {
             _bookRoomButton.ActionClick();
