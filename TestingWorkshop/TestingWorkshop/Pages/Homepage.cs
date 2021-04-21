@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
@@ -15,8 +11,6 @@ namespace TestingWorkshop.Pages
     {
         #region Selectors
 
-        private readonly By _bookThisRoomButton = By.CssSelector(".openBooking");
-
         private readonly By _firstNameInput = By.CssSelector(".room-firstname");
         private readonly By _lastNameInput = By.CssSelector(".room-lastname");
         private readonly By _emailInput = By.CssSelector(".room-email");
@@ -25,11 +19,11 @@ namespace TestingWorkshop.Pages
         private readonly By _bookRoomButton = By.CssSelector(".btn-outline-primary.book-room");
         private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
 
-        private readonly By _succesMessage = By.CssSelector(".col-sm-6.text-center > h3");
+        private readonly By _successMessage = By.CssSelector(".col-sm-6.text-center > h3");
         private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
         #endregion
 
-        
+
         public void ClickBookRoom()
         {
             _bookRoomButton.ActionClick();
@@ -45,11 +39,9 @@ namespace TestingWorkshop.Pages
             SelectDates();
         }
 
-        public void ClickBookThisRoomButton()
+        public void ClickBookThisRoom()
         {
-            //_bookRoomButton.ActionClick();
-            var roomButtons = _bookRoomButtons.GetElements();
-            roomButtons.Last().Click();
+            _bookRoomButtons.GetElements().Last().Click();
         }
 
         private void SelectDates()
@@ -64,20 +56,12 @@ namespace TestingWorkshop.Pages
                   .Perform();
         }
 
-        public bool IsSuccesfullBooking()
+        public bool IsSuccessMessageDisplayed()
         {
-            WaitHelpers.WaitForElement(_succesMessage);
-            return _succesMessage.GetText().Equals("Booking Successful!");
+            _successMessage.WaitForElement();
+            return _successMessage.GetText().Equals("Booking Successful!");
         }
 
-
-
-
-
-
-
-
     }
-
 
 }
