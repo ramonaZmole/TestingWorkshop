@@ -65,6 +65,7 @@ namespace TestingWorkshop.Pages
 
         public bool IsSuccesfullBooking()
         {
+            WaitHelpers.WaitForElement(_succesMessage);
             return _succesMessage.GetText().Equals("Booking Successful!");
         }
 
