@@ -12,7 +12,5 @@ namespace TestingWorkshop.Helpers
             Browser.GoTo(Constants.Url);
 
         }
-
-
     }
 }

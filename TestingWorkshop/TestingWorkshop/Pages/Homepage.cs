@@ -60,7 +60,5 @@ namespace TestingWorkshop.Pages
             _successMessage.WaitForElement();
             return _successMessage.GetText().Equals("Booking Successful!");
         }
-
     }
-
 }

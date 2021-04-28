@@ -13,8 +13,8 @@ namespace TestingWorkshop.Tests
     [TestClass]
     public class BookingTests : BaseTest
     {
-        readonly RestClient _client = RequestHelper.GetRestClient(Constants.Url);
-        int _roomId;
+        private readonly RestClient _client = RequestHelper.GetRestClient(Constants.Url);
+        private int _roomId;
 
         [TestInitialize]
         public override void TestInitialize()
