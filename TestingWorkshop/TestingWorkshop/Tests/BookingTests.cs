@@ -19,7 +19,8 @@ namespace TestingWorkshop.Tests
         [TestInitialize]
         public override void TestInitialize()
         {
-            _client.AddDefaultHeader("cookie", Constants.Cookie);
+            var token = _client.GetLoginToken();
+            _client.AddDefaultHeader("cookie", $"token={token}");
             var response = _client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
             _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(response.Content).roomId;
             base.TestInitialize();
@@ -34,9 +35,19 @@ namespace TestingWorkshop.Tests
             Pages.HomePage.IsSuccessMessageDisplayed().Should().BeTrue();
         }
 
-        [TestCleanup]
-        public void TestCleanUp()
+        [TestMethod]
+        public void WhenCancellingBookingFormShouldNotBeDisplayedTest()
         {
+            Pages.HomePage.ClickBookThisRoom();
+            Pages.HomePage.CompleteBookingDetails(new UserModel());
+            Pages.HomePage.ClickCancelBooking();
+
+        }
+
+        [TestCleanup]
+        public override void TestCleanUp()
+        {
+            base.TestCleanUp();
             _client.CreateRequest($"{ApiResource.Room}/{_roomId}", Method.DELETE);
         }
     }

@@ -17,6 +17,7 @@ namespace TestingWorkshop.Pages
         private readonly By _phoneInput = By.CssSelector(".room-phone");
 
         private readonly By _bookRoomButton = By.CssSelector(".btn-outline-primary.book-room");
+        private readonly By _cancelBookingButton = By.CssSelector(".btn-outline-danger");
         private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
 
         private readonly By _successMessage = By.CssSelector(".col-sm-6.text-center > h3");
@@ -26,6 +27,11 @@ namespace TestingWorkshop.Pages
         public void ClickBookRoom()
         {
             _bookRoomButton.ActionClick();
+        }
+
+        public void ClickCancelBooking()
+        {
+            _cancelBookingButton.ActionClick();
         }
 
         internal void CompleteBookingDetails(UserModel userModel)

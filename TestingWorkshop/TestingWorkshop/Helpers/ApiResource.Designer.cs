@@ -61,6 +61,15 @@ namespace TestingWorkshop.Helpers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /auth/login.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /room/.
         /// </summary>
         internal static string Room {
