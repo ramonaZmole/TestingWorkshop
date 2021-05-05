@@ -14,7 +14,7 @@ namespace TestingWorkshop.Helpers
         public virtual void TestInitialize()
         {
             Browser.InitializeDriver();
-            Browser.GoTo("https://automationintesting.online/#/");
+            Browser.GoTo(Constants.Url);
 
         }
 
