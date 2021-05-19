@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestingWorkshop.Helpers.Model.ApiModels
 {
-    public class LoginModelOutput
+    public class LoginInput
     {
-        public string token { get; set; }
+        public string username { get; set; } = "admin";
+        public string password { get; set; } = "password";
     }
 }
