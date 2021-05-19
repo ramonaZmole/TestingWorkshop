@@ -19,6 +19,7 @@ namespace TestingWorkshop.Pages
         private readonly By _bookRoomButton = By.CssSelector(".btn-outline-primary.book-room");
         private readonly By _cancelBookingButton = By.CssSelector(".btn-outline-danger");
         private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
+        private readonly By _calendar = By.CssSelector(".rbc-calendar");
 
         private readonly By _successMessage = By.CssSelector(".col-sm-6.text-center > h3");
         private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
@@ -65,6 +66,21 @@ namespace TestingWorkshop.Pages
         {
             _successMessage.WaitForElement();
             return _successMessage.GetText().Equals("Booking Successful!");
+        }
+
+        public bool IsBookingFormDisplayed()
+        {
+            return _firstNameInput.IsElementPresent()
+                   && _lastNameInput.IsElementPresent()
+                   && _emailInput.IsElementPresent()
+                   && _phoneInput.IsElementPresent()
+                   && _bookRoomButton.IsElementPresent()
+                   && _cancelBookingButton.IsElementPresent();
+        }
+
+        public bool IsCalendarDisplayed()
+        {
+            return _calendar.IsElementPresent();
         }
     }
 }

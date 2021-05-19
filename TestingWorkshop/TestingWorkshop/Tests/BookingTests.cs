@@ -41,7 +41,8 @@ namespace TestingWorkshop.Tests
             Pages.HomePage.ClickBookThisRoom();
             Pages.HomePage.CompleteBookingDetails(new UserModel());
             Pages.HomePage.ClickCancelBooking();
-
+            Pages.HomePage.IsBookingFormDisplayed().Should().BeFalse();
+            Pages.HomePage.IsCalendarDisplayed().Should().BeFalse();
         }
 
         [TestCleanup]

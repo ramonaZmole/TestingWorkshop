@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NsTestFrameworkUI.Helpers;
 
+[assembly:Parallelize(Workers = 4,Scope = ExecutionScope.MethodLevel)]
 namespace TestingWorkshop.Helpers
 {
     public class BaseTest
