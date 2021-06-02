@@ -61,7 +61,7 @@ namespace TestingWorkshop.Helpers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to booking/.
+        ///   Looks up a localized string similar to /booking/.
         /// </summary>
         internal static string Booking {
             get {

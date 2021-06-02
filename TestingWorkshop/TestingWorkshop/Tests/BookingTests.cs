@@ -13,17 +13,15 @@ namespace TestingWorkshop.Tests
     [TestClass]
     public class BookingTests : BaseTest
     {
-        private readonly RestClient _client = RequestHelper.GetRestClient(Constants.Url);
         private int _roomId;
 
         [TestInitialize]
         public override void TestInitialize()
         {
-            var token = _client.GetLoginToken();
-            _client.AddDefaultHeader("cookie", $"token={token}");
-            var response = _client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
-            _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(response.Content).roomId;
             base.TestInitialize();
+
+            var roomResponse = Client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
+            _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(roomResponse.Content).roomId;
         }
 
         [TestMethod]
@@ -40,7 +38,7 @@ namespace TestingWorkshop.Tests
         {
             Pages.HomePage.ClickBookThisRoom();
             Pages.HomePage.CompleteBookingDetails(new UserModel());
-            Pages.HomePage.ClickCancelBooking();
+            Pages.HomePage.CancelBooking();
             Pages.HomePage.IsBookingFormDisplayed().Should().BeFalse();
             Pages.HomePage.IsCalendarDisplayed().Should().BeFalse();
         }
@@ -49,7 +47,7 @@ namespace TestingWorkshop.Tests
         public override void TestCleanUp()
         {
             base.TestCleanUp();
-            _client.CreateRequest($"{ApiResource.Room}/{_roomId}", Method.DELETE);
+            Client.CreateRequest($"{ApiResource.Room}/{_roomId}", Method.DELETE);
         }
     }
 }

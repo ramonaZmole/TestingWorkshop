@@ -1,8 +1,19 @@
-﻿namespace TestingWorkshop.Helpers
+﻿using System.Collections.Generic;
+
+namespace TestingWorkshop.Helpers
 {
     public class Constants
     {
         public static string Url = "https://automationintesting.online/";
-        public static string Cookie = "__cfduid=da238cb8c831b6c8851619a317d638e571616569469; _ga=GA1.2.289307235.1616569470; _gid=GA1.2.1338565523.1616569470; banner=true; token=4UzjLD4mJGFgy1E1; _gat=1";
+
+        public static string AlreadyBookedErrorMessage = "The room dates are either invalid or are already booked for one or more of the dates that you have selected.";
+        public static List<string> FormErrorMessages = new List<string>
+        {
+            "size must be between 3 and 30",
+            "must not be null", "must not be empty",
+            "size must be between 3 and 18", "must not be null",
+            "Lastname should not be blank","Firstname should not be blank",
+            "size must be between 11 and 21", "must not be empty"
+        };
     }
 }

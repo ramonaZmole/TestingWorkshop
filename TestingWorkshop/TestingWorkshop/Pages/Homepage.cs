@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
@@ -18,11 +20,12 @@ namespace TestingWorkshop.Pages
 
         private readonly By _bookRoomButton = By.CssSelector(".btn-outline-primary.book-room");
         private readonly By _cancelBookingButton = By.CssSelector(".btn-outline-danger");
-        private readonly By _startDate = By.CssSelector(".rbc-calendar .rbc-month-row:nth-child(3) .rbc-date-cell:first-child");
         private readonly By _calendar = By.CssSelector(".rbc-calendar");
 
         private readonly By _successMessage = By.CssSelector(".col-sm-6.text-center > h3");
         private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
+
+        private readonly By _errorMessages = By.CssSelector(".alert.alert-danger p");
         #endregion
 
         public void ClickBookRoom()
@@ -30,10 +33,7 @@ namespace TestingWorkshop.Pages
             _bookRoomButton.ActionClick();
         }
 
-        public void ClickCancelBooking()
-        {
-            _cancelBookingButton.ActionClick();
-        }
+        public void CancelBooking() => _cancelBookingButton.ActionClick();
 
         internal void CompleteBookingDetails(UserModel userModel)
         {
@@ -42,7 +42,7 @@ namespace TestingWorkshop.Pages
             _emailInput.ActionSendKeys(userModel.Email);
             _phoneInput.ActionSendKeys(userModel.ContactPhone);
 
-            SelectDates();
+            SelectDates(DateTime.Now.ToString("dd"));
         }
 
         public void ClickBookThisRoom()
@@ -50,12 +50,12 @@ namespace TestingWorkshop.Pages
             _bookRoomButtons.GetElements().Last().Click();
         }
 
-        private void SelectDates()
+        private static void SelectDates(string dayOfMonth)
         {
             var actions = new Actions(Browser.WebDriver);
 
-            actions.ClickAndHold(Browser.WebDriver.FindElement(_startDate))
-                  .MoveByOffset(20, 10)
+            actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()=\"{dayOfMonth}\"] ")))
+                  .MoveByOffset(10, 10)
                   .MoveByOffset(100, 0)
                   .Release()
                   .Build()
@@ -81,6 +81,12 @@ namespace TestingWorkshop.Pages
         public bool IsCalendarDisplayed()
         {
             return _calendar.IsElementPresent();
+        }
+
+        public List<string> GetErrorMessages()
+        {
+            WaitHelpers.ExplicitWait();
+            return _errorMessages.GetElements().Select(x => x.Text).ToList();
         }
     }
 }

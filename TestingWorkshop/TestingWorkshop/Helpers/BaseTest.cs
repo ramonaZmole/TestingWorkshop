@@ -1,17 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
+using RestSharp;
 
-[assembly:Parallelize(Workers = 4,Scope = ExecutionScope.MethodLevel)]
+[assembly: Parallelize(Workers = 4, Scope = ExecutionScope.MethodLevel)]
 namespace TestingWorkshop.Helpers
 {
     public class BaseTest
     {
         public TestContext TestContext { get; set; }
+        public readonly RestClient Client = RequestHelper.GetRestClient(Constants.Url);
 
         [TestInitialize]
         public virtual void TestInitialize()
         {
-
+            SetClientToken();
             Browser.InitializeDriver(true);
             Browser.GoTo(Constants.Url);
         }
@@ -25,6 +28,12 @@ namespace TestingWorkshop.Helpers
                 TestContext.AddResultFile(path);
             }
             Browser.Cleanup();
+        }
+
+        private void SetClientToken()
+        {
+            var token = Client.GetLoginToken();
+            Client.AddDefaultHeader("cookie", $"token={token}");
         }
     }
 }

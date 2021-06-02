@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestingWorkshop.Helpers.Model.ApiModels
 {
@@ -14,7 +10,7 @@ namespace TestingWorkshop.Helpers.Model.ApiModels
 
     public class CreateBookingInput
     {
-        public BookingDates BookingDates { get; set; } = new();
+        public BookingDates bookingdates { get; set; } = new BookingDates();
         public bool depositpaid { get; set; } = Faker.Boolean.Random();
         public string firstname { get; set; } = Faker.Name.First();
         public string lastname { get; set; } = Faker.Name.Last();

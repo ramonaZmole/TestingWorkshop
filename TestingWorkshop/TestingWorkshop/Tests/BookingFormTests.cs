@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
 using RestSharp;
 using TestingWorkshop.Helpers;
+using TestingWorkshop.Helpers.Model;
 using TestingWorkshop.Helpers.Model.ApiModels;
 
 namespace TestingWorkshop.Tests
@@ -15,29 +12,40 @@ namespace TestingWorkshop.Tests
     [TestClass]
     public class BookingFormTests : BaseTest
     {
-        private readonly RestClient _client = RequestHelper.GetRestClient(Constants.Url);
         private int _roomId;
 
         [TestInitialize]
         public override void TestInitialize()
         {
-            var token = _client.GetLoginToken();
-            _client.AddDefaultHeader("cookie", $"token={token}");
-            var response = _client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
-            _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(response.Content).roomId;
             base.TestInitialize();
-            var booking = new CreateBookingInput()
+
+            var roomResponse = Client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
+            _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(roomResponse.Content).roomId;
+
+            var bookingInput = new CreateBookingInput
             {
                 roomid = _roomId
             };
-            var bookingResponse = _client.CreateRequest(ApiResource.Booking, booking, Method.POST);
-
+            Client.CreateRequest(ApiResource.Booking, bookingInput, Method.POST);
         }
 
         [TestMethod]
-        public void Test()
+        public void WhenBookingRoomErrorMessageShouldBeDisplayedTest()
         {
+            Pages.HomePage.ClickBookThisRoom();
+            Pages.HomePage.ClickBookRoom();
+            Pages.HomePage.GetErrorMessages().Should().BeEquivalentTo(Constants.FormErrorMessages);
 
+            Pages.HomePage.CompleteBookingDetails(new UserModel());
+            Pages.HomePage.ClickBookRoom();
+            Pages.HomePage.GetErrorMessages()[2].Should().Be(Constants.AlreadyBookedErrorMessage);
+        }
+
+        [TestCleanup]
+        public override void TestCleanUp()
+        {
+            base.TestCleanUp();
+            Client.CreateRequest($"{ApiResource.Room}/{_roomId}", Method.DELETE);
         }
     }
 }
