@@ -53,11 +53,11 @@ namespace TestingWorkshop.Pages
         private static void SelectDates(string dayOfMonth)
         {
             var actions = new Actions(Browser.WebDriver);
+            var endDate = DateTime.Now.AddDays(1).ToString("dd");
 
             actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()=\"{dayOfMonth}\"] ")))
                   .MoveByOffset(10, 10)
-                  .MoveByOffset(100, 0)
-                  .Release()
+                  .Release(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()=\"{endDate}\"] ")))
                   .Build()
                   .Perform();
         }
