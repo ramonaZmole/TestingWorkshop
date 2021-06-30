@@ -6,6 +6,9 @@ namespace TestingWorkshop.Helpers
     {
         public static string Url = "https://automationintesting.online/";
 
+        public static string BookingStartDay = "10";
+        public static string BookingEndDay = "13";
+
         public static string AlreadyBookedErrorMessage = "The room dates are either invalid or are already booked for one or more of the dates that you have selected.";
         public static List<string> FormErrorMessages = new List<string>
         {

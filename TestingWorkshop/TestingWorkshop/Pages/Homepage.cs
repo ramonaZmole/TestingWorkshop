@@ -5,6 +5,7 @@ using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model;
 
 namespace TestingWorkshop.Pages
@@ -42,7 +43,7 @@ namespace TestingWorkshop.Pages
             _emailInput.ActionSendKeys(userModel.Email);
             _phoneInput.ActionSendKeys(userModel.ContactPhone);
 
-            SelectDates(DateTime.Now.ToString("dd"));
+            SelectDates();
         }
 
         public void ClickBookThisRoom()
@@ -50,14 +51,13 @@ namespace TestingWorkshop.Pages
             _bookRoomButtons.GetElements().Last().Click();
         }
 
-        private static void SelectDates(string dayOfMonth)
+        private static void SelectDates()
         {
             var actions = new Actions(Browser.WebDriver);
-            var endDate = DateTime.Now.AddDays(1).ToString("dd");
 
-            actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()=\"{dayOfMonth}\"] ")))
+            actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()={Constants.BookingStartDay}] ")))
                   .MoveByOffset(10, 10)
-                  .Release(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()=\"{endDate}\"] ")))
+                  .Release(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()={Constants.BookingEndDay}] ")))
                   .Build()
                   .Perform();
         }

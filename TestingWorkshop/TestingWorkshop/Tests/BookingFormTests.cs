@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Reflection.Metadata;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
@@ -24,8 +26,11 @@ namespace TestingWorkshop.Tests
 
             var bookingInput = new CreateBookingInput
             {
-                roomid = _roomId
+                roomid = _roomId,
+                bookingdates = new BookingDates()
             };
+            bookingInput.bookingdates.checkin.Remove(8, 2).Insert(8, Constants.BookingStartDay);
+            bookingInput.bookingdates.checkout.Remove(8, 2).Insert(8, Constants.BookingEndDay);
             Client.CreateRequest(ApiResource.Booking, bookingInput, Method.POST);
         }
 
