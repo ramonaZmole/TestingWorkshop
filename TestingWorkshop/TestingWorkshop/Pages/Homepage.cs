@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
@@ -13,6 +12,8 @@ namespace TestingWorkshop.Pages
     public class Homepage
     {
         #region Selectors
+
+        private readonly By _descriptions = By.CssSelector(".row.hotel-room-info p");
 
         private readonly By _firstNameInput = By.CssSelector(".room-firstname");
         private readonly By _lastNameInput = By.CssSelector(".room-lastname");
@@ -46,9 +47,11 @@ namespace TestingWorkshop.Pages
             SelectDates();
         }
 
-        public void ClickBookThisRoom()
+        public void ClickBookThisRoom(string roomDescription)
         {
-            _bookRoomButtons.GetElements().Last().Click();
+            var descriptions = _descriptions.GetElements();
+            var index = descriptions.IndexOf(descriptions.First(x => x.Text == roomDescription));
+            _bookRoomButtons.GetElements()[index].Click();
         }
 
         private static void SelectDates()

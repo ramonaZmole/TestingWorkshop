@@ -15,8 +15,10 @@ namespace TestingWorkshop.Helpers
         public virtual void TestInitialize()
         {
             SetClientToken();
-            Browser.InitializeDriver(true);
-            Browser.GoTo(Constants.Url);
+            Browser.InitializeDriver(new DriverOptions
+            {
+                IsHeadless = true
+            });
         }
 
         [TestCleanup]

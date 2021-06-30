@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
+using NsTestFrameworkUI.Helpers;
 using RestSharp;
 using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model;
@@ -14,20 +15,23 @@ namespace TestingWorkshop.Tests
     public class BookingTests : BaseTest
     {
         private int _roomId;
+        private readonly CreateRoomInput _createRoomInput = new CreateRoomInput();
 
         [TestInitialize]
         public override void TestInitialize()
         {
             base.TestInitialize();
 
-            var roomResponse = Client.CreateRequest(ApiResource.Room, new CreateRoomInput(), Method.POST);
+            var roomResponse = Client.CreateRequest(ApiResource.Room, _createRoomInput, Method.POST);
             _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(roomResponse.Content).roomId;
         }
 
         [TestMethod]
         public void WhenBookingRoomSuccessMessageShouldBeDisplayedTest()
         {
-            Pages.HomePage.ClickBookThisRoom();
+            Browser.GoTo(Constants.Url);
+
+            Pages.HomePage.ClickBookThisRoom(_createRoomInput.description);
             Pages.HomePage.CompleteBookingDetails(new UserModel());
             Pages.HomePage.ClickBookRoom();
             Pages.HomePage.IsSuccessMessageDisplayed().Should().BeTrue();
@@ -36,7 +40,9 @@ namespace TestingWorkshop.Tests
         [TestMethod]
         public void WhenCancellingBookingFormShouldNotBeDisplayedTest()
         {
-            Pages.HomePage.ClickBookThisRoom();
+            Browser.GoTo(Constants.Url);
+
+            Pages.HomePage.ClickBookThisRoom(_createRoomInput.description);
             Pages.HomePage.CompleteBookingDetails(new UserModel());
             Pages.HomePage.CancelBooking();
             Pages.HomePage.IsBookingFormDisplayed().Should().BeFalse();
