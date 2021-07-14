@@ -8,7 +8,7 @@ using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model;
 using TestingWorkshop.Helpers.Model.ApiModels;
 
-namespace TestingWorkshop.Tests
+namespace TestingWorkshop.Tests.Book
 {
     [TestClass]
     public class BookingFormTests : BaseTest

@@ -17,7 +17,7 @@ namespace TestingWorkshop.Helpers
             SetClientToken();
             Browser.InitializeDriver(new DriverOptions
             {
-                IsHeadless = true
+                IsHeadless = false
             });
         }
 
