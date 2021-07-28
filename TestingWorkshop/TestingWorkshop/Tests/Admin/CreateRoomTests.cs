@@ -1,14 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NsTestFrameworkUI.Helpers;
+using TestingWorkshop.Helpers;
+using TestingWorkshop.Helpers.Model;
 
 namespace TestingWorkshop.Tests.Admin
 {
     [TestClass]
-    public class CreateRoomTests
+    public class CreateRoomTests : BaseTest
     {
+
+        [TestMethod]
+        public void WhenCreatingARoomThenItShouldBeCreatedTest()
+        {
+            Browser.GoTo(Constants.AdminUrl);
+
+            Pages.LoginPage.Login();
+            Pages.RoomPage.CreateRoom(new CreateRoomModel());
+        }
     }
+
 }

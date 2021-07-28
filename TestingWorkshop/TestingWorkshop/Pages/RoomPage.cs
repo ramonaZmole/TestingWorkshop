@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
 using TestingWorkshop.Helpers.Model;
@@ -22,7 +18,7 @@ namespace TestingWorkshop.Pages
         #endregion
 
 
-        private void CreateRoom(CreateRoomModel createRoomModel)
+        public void CreateRoom(CreateRoomModel createRoomModel)
         {
             _roomIdInput.ActionSendKeys(createRoomModel.RoomId);
             _typeDropDown.SelectFromDropdownByText(createRoomModel.Type[Faker.RandomNumber.Next(0,4)]);
