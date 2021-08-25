@@ -1,8 +1,12 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
+using System.Linq;
 using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model;
+using TestingWorkshop.Helpers.Model.ApiModels;
 
 namespace TestingWorkshop.Tests.Admin
 {
@@ -37,6 +41,16 @@ namespace TestingWorkshop.Tests.Admin
             Pages.RoomPage.FillForm(_roomModel);
             Pages.RoomPage.CreateRoom();
             Pages.RoomPage.GetLastCreatedRoomDetails().RoomDetails.Should().Be("No features added to the room");
+        }
+
+        [TestCleanup]
+        public override void TestCleanUp()
+        {
+            base.TestCleanUp();
+            var response = Client.CreateRequest(ApiResource.Room);
+            var roomsList = JsonConvert.DeserializeObject<GetRoomsOutput>(response.Content);
+            var id = roomsList.rooms.Where(x => x.roomNumber == int.Parse(_roomModel.RoomNumber)).FirstOrDefault().roomid;
+            Client.CreateRequest($"{ApiResource.Room}/{id}", RestSharp.Method.DELETE);
         }
     }
 

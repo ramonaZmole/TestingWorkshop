@@ -30,7 +30,7 @@ namespace TestingWorkshop.Pages
 
         public void FillForm(CreateRoomModel createRoomModel)
         {
-            _roomIdInput.ActionSendKeys(createRoomModel.RoomId);
+            _roomIdInput.ActionSendKeys(createRoomModel.RoomNumber);
             _typeDropDown.SelectFromDropdownByText(createRoomModel.Type);
             _accessibleDropDown.SelectFromDropdownByText(createRoomModel.Accessible);
             _roomPriceInput.ActionSendKeys(createRoomModel.Price);
@@ -45,7 +45,7 @@ namespace TestingWorkshop.Pages
 
             return new CreateRoomModel
             {
-                RoomId = roomDetails[0].Text,
+                RoomNumber = roomDetails[0].Text,
                 Type = roomDetails[1].Text,
                 Accessible = roomDetails[2].Text,
                 Price = roomDetails[3].Text,
