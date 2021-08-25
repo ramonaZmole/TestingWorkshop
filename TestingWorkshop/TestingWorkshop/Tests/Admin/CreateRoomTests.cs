@@ -17,8 +17,26 @@ namespace TestingWorkshop.Tests.Admin
             Browser.GoTo(Constants.AdminUrl);
 
             Pages.LoginPage.Login();
-            Pages.RoomPage.CreateRoom(_roomModel);
+
+            Pages.RoomPage.CreateRoom();
+            Pages.RoomPage.IsErrorMessageDisplayed().Should().BeTrue();
+
+            Pages.RoomPage.FillForm(_roomModel);
+            Pages.RoomPage.CreateRoom();
             Pages.RoomPage.GetLastCreatedRoomDetails().Should().BeEquivalentTo(_roomModel);
+        }
+
+        [TestMethod]
+        public void WhenCreatingRoomWithNoRoomDetailsNoFeaturesShouldBeDisplayedTest()
+        {
+            _roomModel.RoomDetails = string.Empty;
+
+            Browser.GoTo(Constants.AdminUrl);
+            Pages.LoginPage.Login();
+
+            Pages.RoomPage.FillForm(_roomModel);
+            Pages.RoomPage.CreateRoom();
+            Pages.RoomPage.GetLastCreatedRoomDetails().RoomDetails.Should().Be("No features added to the room");
         }
     }
 
