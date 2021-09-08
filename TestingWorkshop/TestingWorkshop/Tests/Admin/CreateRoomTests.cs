@@ -49,7 +49,7 @@ namespace TestingWorkshop.Tests.Admin
             base.TestCleanUp();
             var response = Client.CreateRequest(ApiResource.Room);
             var roomsList = JsonConvert.DeserializeObject<GetRoomsOutput>(response.Content);
-            var id = roomsList.rooms.Where(x => x.roomNumber == int.Parse(_roomModel.RoomNumber)).FirstOrDefault().roomid;
+            var id = roomsList.rooms.First(x => x.roomNumber == int.Parse(_roomModel.RoomNumber)).roomid;
             Client.CreateRequest($"{ApiResource.Room}/{id}", RestSharp.Method.DELETE);
         }
     }
