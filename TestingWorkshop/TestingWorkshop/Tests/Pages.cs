@@ -8,5 +8,7 @@ namespace TestingWorkshop.Tests
         public static Homepage HomePage = PageHelpers.InitPage(new Homepage());
         public static LoginPage LoginPage = PageHelpers.InitPage(new LoginPage());
         public static RoomPage RoomPage = PageHelpers.InitPage(new RoomPage());
+        public static ReportPage ReportPage = PageHelpers.InitPage(new ReportPage());
+        public static AdminHeaderPage AdminHeaderPage = PageHelpers.InitPage(new AdminHeaderPage());
     }
 }

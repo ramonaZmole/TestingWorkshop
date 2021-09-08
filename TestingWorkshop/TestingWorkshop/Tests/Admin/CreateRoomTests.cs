@@ -43,6 +43,7 @@ namespace TestingWorkshop.Tests.Admin
             Pages.RoomPage.GetLastCreatedRoomDetails().RoomDetails.Should().Be("No features added to the room");
         }
 
+
         [TestCleanup]
         public override void TestCleanUp()
         {
