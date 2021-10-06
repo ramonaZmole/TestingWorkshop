@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using RestSharp;
@@ -13,16 +12,14 @@ namespace TestingWorkshop.Tests.Book
     [TestClass]
     public class BookingTests : BaseTest
     {
-        private int _roomId;
-        private readonly CreateRoomInput _createRoomInput = new CreateRoomInput();
+        private CreateRoomOutput _createRoomResponse;
 
         [TestInitialize]
         public override void TestInitialize()
         {
             base.TestInitialize();
 
-            var roomResponse = Client.CreateRequest(ApiResource.Room, _createRoomInput, Method.POST);
-            _roomId = JsonConvert.DeserializeObject<CreateRoomOutput>(roomResponse.Content).roomId;
+            _createRoomResponse = Client.CreateRoom();
         }
 
         [TestMethod]
@@ -30,7 +27,7 @@ namespace TestingWorkshop.Tests.Book
         {
             Browser.GoTo(Constants.Url);
 
-            Pages.HomePage.ClickBookThisRoom(_createRoomInput.description);
+            Pages.HomePage.ClickBookThisRoom(_createRoomResponse.description);
             Pages.HomePage.CompleteBookingDetails(new UserModel());
             Pages.HomePage.ClickBookRoom();
             Pages.HomePage.IsSuccessMessageDisplayed().Should().BeTrue();
@@ -41,7 +38,7 @@ namespace TestingWorkshop.Tests.Book
         {
             Browser.GoTo(Constants.Url);
 
-            Pages.HomePage.ClickBookThisRoom(_createRoomInput.description);
+            Pages.HomePage.ClickBookThisRoom(_createRoomResponse.description);
             Pages.HomePage.CompleteBookingDetails(new UserModel());
             Pages.HomePage.CancelBooking();
             Pages.HomePage.IsBookingFormDisplayed().Should().BeFalse();
@@ -52,7 +49,7 @@ namespace TestingWorkshop.Tests.Book
         public override void TestCleanUp()
         {
             base.TestCleanUp();
-            Client.CreateRequest($"{ApiResource.Room}/{_roomId}", Method.DELETE);
+            Client.CreateRequest($"{ApiResource.Room}/{_createRoomResponse.roomId}", Method.DELETE);
         }
     }
 }

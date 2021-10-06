@@ -9,6 +9,7 @@ namespace TestingWorkshop.Pages
     public class RoomPage
     {
         #region Selectors
+
         private readonly By _createButton = By.CssSelector("#createRoom");
         private readonly By _roomIdInput = By.CssSelector("#roomNumber");
         private readonly By _typeDropDown = By.CssSelector("#type");
@@ -36,7 +37,6 @@ namespace TestingWorkshop.Pages
             _roomPriceInput.ActionSendKeys(createRoomModel.Price);
             if (string.IsNullOrEmpty(createRoomModel.RoomDetails)) return;
             _roomDetailsLabels.GetElements().First(x => x.Text == createRoomModel.RoomDetails).Click();
-
         }
 
         public CreateRoomModel GetLastCreatedRoomDetails()

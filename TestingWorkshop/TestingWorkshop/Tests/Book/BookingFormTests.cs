@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using RestSharp;
