@@ -10,7 +10,7 @@ public class BookingDates
 
 public class CreateBookingInput
 {
-    public BookingDates bookingdates { get; set; } = new BookingDates();
+    public BookingDates bookingdates { get; set; } = new();
     public bool depositpaid { get; set; } = Faker.Boolean.Random();
     public string firstname { get; set; } = Faker.Name.First();
     public string lastname { get; set; } = Faker.Name.Last();

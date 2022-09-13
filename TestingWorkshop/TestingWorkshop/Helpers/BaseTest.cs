@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using RestSharp;
@@ -17,7 +19,8 @@ public class BaseTest
         SetClientToken();
         Browser.InitializeDriver(new DriverOptions
         {
-            IsHeadless = true
+            IsHeadless = true,
+            ChromeDriverPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
         });
     }
 

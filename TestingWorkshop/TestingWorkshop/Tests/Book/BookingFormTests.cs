@@ -23,7 +23,7 @@ public class BookingFormTests : BaseTest
 
         var bookingInput = new CreateBookingInput
         {
-            roomid = _createRoomOutput.roomId
+            roomid = _createRoomOutput.roomid
         };
         Client.CreateBooking(bookingInput);
     }
@@ -39,13 +39,13 @@ public class BookingFormTests : BaseTest
 
         Pages.HomePage.CompleteBookingDetails(new UserModel());
         Pages.HomePage.ClickBookRoom();
-        Pages.HomePage.GetErrorMessages()[2].Should().Be(Constants.AlreadyBookedErrorMessage);
+        Pages.HomePage.GetErrorMessages()[0].Should().Be(Constants.AlreadyBookedErrorMessage);
     }
 
     [TestCleanup]
     public override void TestCleanUp()
     {
         base.TestCleanUp();
-        Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
+        Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
     }
 }

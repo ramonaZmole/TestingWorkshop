@@ -13,7 +13,7 @@ namespace TestingWorkshop.Tests.Admin;
 [TestClass]
 public class CreateRoomTests : BaseTest
 {
-    private readonly CreateRoomModel _roomModel = new CreateRoomModel();
+    private readonly CreateRoomModel _roomModel = new();
 
     [TestMethod]
     public void WhenCreatingARoomThenItShouldBeCreatedTest()
@@ -50,7 +50,8 @@ public class CreateRoomTests : BaseTest
         base.TestCleanUp();
         var response = Client.CreateRequest(ApiResource.Room);
         var roomsList = JsonConvert.DeserializeObject<GetRoomsOutput>(response.Content);
-        var id = roomsList.rooms.First(x => x.roomNumber == int.Parse(_roomModel.RoomNumber)).roomid;
-        Client.CreateRequest($"{ApiResource.Room}/{id}", RestSharp.Method.DELETE);
+        if (roomsList == null) return;
+        var id = roomsList.rooms.First(x => x.roomName == int.Parse(_roomModel.RoomName)).roomid;
+        Client.CreateRequest($"{ApiResource.Room}{id}", RestSharp.Method.DELETE);
     }
 }

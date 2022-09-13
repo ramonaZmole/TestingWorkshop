@@ -22,7 +22,7 @@ public class ReportTests : BaseTest
 
         _bookingInput = new CreateBookingInput
         {
-            roomid = _createRoomOutput.roomId
+            roomid = _createRoomOutput.roomid
         };
         Client.CreateBooking(_bookingInput);
     }
@@ -36,7 +36,7 @@ public class ReportTests : BaseTest
         Pages.AdminHeaderPage.GoToMenu(Helpers.Model.MenuItems.Report);
 
         var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
-        Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomNumber).Should().BeTrue();
+        Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
     }
 
 
@@ -44,6 +44,6 @@ public class ReportTests : BaseTest
     public override void TestCleanUp()
     {
         base.TestCleanUp();
-        Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
+        var t = Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
     }
 }

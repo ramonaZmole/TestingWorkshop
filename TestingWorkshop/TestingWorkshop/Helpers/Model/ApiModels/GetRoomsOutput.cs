@@ -5,7 +5,7 @@ namespace TestingWorkshop.Helpers.Model.ApiModels;
 public class Room
 {
     public int roomid { get; set; }
-    public int roomNumber { get; set; }
+    public int roomName { get; set; }
     public string type { get; set; }
     public bool accessible { get; set; }
     public string image { get; set; }

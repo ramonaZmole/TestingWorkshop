@@ -4,7 +4,7 @@ namespace TestingWorkshop.Helpers.Model;
 
 public class CreateRoomModel
 {
-    public string RoomNumber { get; set; } = Faker.RandomNumber.Next(0, 1000).ToString();
+    public string RoomName { get; set; } = Faker.RandomNumber.Next(0, 1000).ToString();
     public string Type { get; set; } = GetRoomType();
     public string Accessible { get; set; } = Faker.Boolean.Random().ToString().ToLower();
     public string Price { get; set; } = Faker.RandomNumber.Next(0, 999).ToString();

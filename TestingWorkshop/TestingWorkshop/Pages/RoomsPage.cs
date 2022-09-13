@@ -6,12 +6,12 @@ using TestingWorkshop.Helpers.Model;
 
 namespace TestingWorkshop.Pages;
 
-public class RoomPage
+public class RoomsPage
 {
     #region Selectors
 
     private readonly By _createButton = By.CssSelector("#createRoom");
-    private readonly By _roomIdInput = By.CssSelector("#roomNumber");
+    private readonly By _roomNumberInput = By.CssSelector("#roomName");
     private readonly By _typeDropDown = By.CssSelector("#type");
     private readonly By _accessibleDropDown = By.CssSelector("#accessible");
     private readonly By _roomPriceInput = By.CssSelector("#roomPrice");
@@ -31,7 +31,7 @@ public class RoomPage
 
     public void FillForm(CreateRoomModel createRoomModel)
     {
-        _roomIdInput.ActionSendKeys(createRoomModel.RoomNumber);
+        _roomNumberInput.ActionSendKeys(createRoomModel.RoomName);
         _typeDropDown.SelectFromDropdownByText(createRoomModel.Type);
         _accessibleDropDown.SelectFromDropdownByText(createRoomModel.Accessible);
         _roomPriceInput.ActionSendKeys(createRoomModel.Price);
@@ -45,7 +45,7 @@ public class RoomPage
 
         return new CreateRoomModel
         {
-            RoomNumber = roomDetails[0].Text,
+            RoomName = roomDetails[0].Text,
             Type = roomDetails[1].Text,
             Accessible = roomDetails[2].Text,
             Price = roomDetails[3].Text,
@@ -55,7 +55,9 @@ public class RoomPage
 
     public bool IsErrorMessageDisplayed()
     {
+        var errorMessage = _errorMessage.GetText();
         return _errorMessage.IsElementPresent()
-               && _errorMessage.GetText().Equals("must be greater than or equal to 1");
+               && errorMessage.Contains("must be greater than or equal to 1")
+               && errorMessage.Contains("Room name must be set");
     }
 }

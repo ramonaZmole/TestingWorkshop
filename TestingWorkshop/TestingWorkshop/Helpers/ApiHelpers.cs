@@ -9,8 +9,8 @@ public static class ApiHelpers
 {
     public static string GetLoginToken(this RestClient client)
     {
-        var output = client.CreateRequest(ApiResource.Login, new LoginInput(), Method.POST).Content;
-        return JsonConvert.DeserializeObject<LoginOutput>(output)?.token;
+        var output = client.CreateRequest(ApiResource.Login, new LoginInput(), Method.POST);
+        return output.Cookies[0].Value;
     }
 
     public static CreateRoomOutput CreateRoom(this RestClient client)

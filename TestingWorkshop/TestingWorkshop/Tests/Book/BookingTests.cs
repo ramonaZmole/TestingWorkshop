@@ -49,6 +49,6 @@ public class BookingTests : BaseTest
     public override void TestCleanUp()
     {
         base.TestCleanUp();
-        Client.CreateRequest($"{ApiResource.Room}/{_createRoomResponse.roomId}", Method.DELETE);
+        Client.CreateRequest($"{ApiResource.Room}{_createRoomResponse.roomid}", Method.DELETE);
     }
 }

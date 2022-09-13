@@ -58,9 +58,9 @@ public class Homepage
     {
         var actions = new Actions(Browser.WebDriver);
 
-        actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()={Constants.BookingStartDay}] ")))
+        actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//*[text()={Constants.BookingStartDay}] ")))
             .MoveByOffset(10, 10)
-            .Release(Browser.WebDriver.FindElement(By.XPath($"//div[not(contains(@class, 'rbc-off-range'))]/a[text()={Constants.BookingEndDay}] ")))
+            .Release(Browser.WebDriver.FindElement(By.XPath($"//*[text()={Constants.BookingEndDay}] ")))
             .Build()
             .Perform();
     }
