@@ -7,46 +7,45 @@ using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model;
 using TestingWorkshop.Helpers.Model.ApiModels;
 
-namespace TestingWorkshop.Tests.Book
+namespace TestingWorkshop.Tests.Book;
+
+[TestClass]
+public class BookingFormTests : BaseTest
 {
-    [TestClass]
-    public class BookingFormTests : BaseTest
+    private CreateRoomOutput _createRoomOutput;
+
+    [TestInitialize]
+    public override void TestInitialize()
     {
-        private CreateRoomOutput _createRoomOutput;
+        base.TestInitialize();
 
-        [TestInitialize]
-        public override void TestInitialize()
+        _createRoomOutput = Client.CreateRoom();
+
+        var bookingInput = new CreateBookingInput
         {
-            base.TestInitialize();
+            roomid = _createRoomOutput.roomId
+        };
+        Client.CreateBooking(bookingInput);
+    }
 
-            _createRoomOutput = Client.CreateRoom();
+    [TestMethod]
+    public void WhenBookingRoomErrorMessageShouldBeDisplayedTest()
+    {
+        Browser.GoTo(Constants.Url);
 
-            var bookingInput = new CreateBookingInput
-            {
-                roomid = _createRoomOutput.roomId
-            };
-            Client.CreateBooking(bookingInput);
-        }
+        Pages.HomePage.ClickBookThisRoom(_createRoomOutput.description);
+        Pages.HomePage.ClickBookRoom();
+        Pages.HomePage.GetErrorMessages().Should().BeEquivalentTo(Constants.FormErrorMessages);
 
-        [TestMethod]
-        public void WhenBookingRoomErrorMessageShouldBeDisplayedTest()
-        {
-            Browser.GoTo(Constants.Url);
+        Pages.HomePage.CompleteBookingDetails(new UserModel());
+        Pages.HomePage.ClickBookRoom();
+        Pages.HomePage.GetErrorMessages()[2].Should().Be(Constants.AlreadyBookedErrorMessage);
+    }
 
-            Pages.HomePage.ClickBookThisRoom(_createRoomOutput.description);
-            Pages.HomePage.ClickBookRoom();
-            Pages.HomePage.GetErrorMessages().Should().BeEquivalentTo(Constants.FormErrorMessages);
-
-            Pages.HomePage.CompleteBookingDetails(new UserModel());
-            Pages.HomePage.ClickBookRoom();
-            Pages.HomePage.GetErrorMessages()[2].Should().Be(Constants.AlreadyBookedErrorMessage);
-        }
-
-        [TestCleanup]
-        public override void TestCleanUp()
-        {
-            base.TestCleanUp();
-            Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
-        }
+    [TestCleanup]
+    public override void TestCleanUp()
+    {
+        base.TestCleanUp();
+        Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
     }
 }

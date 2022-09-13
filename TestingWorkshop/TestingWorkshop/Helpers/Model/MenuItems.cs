@@ -1,9 +1,8 @@
-﻿namespace TestingWorkshop.Helpers.Model
+﻿namespace TestingWorkshop.Helpers.Model;
+
+public enum MenuItems
 {
-    public enum MenuItems
-    {
-        Rooms,
-        Report,
-        Branding
-    }
+    Rooms,
+    Report,
+    Branding
 }

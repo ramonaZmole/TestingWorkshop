@@ -6,45 +6,44 @@ using RestSharp;
 using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Model.ApiModels;
 
-namespace TestingWorkshop.Tests.Admin
+namespace TestingWorkshop.Tests.Admin;
+
+[TestClass]
+public class ReportTests : BaseTest
 {
-    [TestClass]
-    public class ReportTests : BaseTest
+    private CreateRoomOutput _createRoomOutput;
+    private CreateBookingInput _bookingInput;
+
+    [TestInitialize]
+    public override void TestInitialize()
     {
-        private CreateRoomOutput _createRoomOutput;
-        private CreateBookingInput _bookingInput;
+        base.TestInitialize();
+        _createRoomOutput = Client.CreateRoom();
 
-        [TestInitialize]
-        public override void TestInitialize()
+        _bookingInput = new CreateBookingInput
         {
-            base.TestInitialize();
-            _createRoomOutput = Client.CreateRoom();
+            roomid = _createRoomOutput.roomId
+        };
+        Client.CreateBooking(_bookingInput);
+    }
 
-            _bookingInput = new CreateBookingInput
-            {
-                roomid = _createRoomOutput.roomId
-            };
-            Client.CreateBooking(_bookingInput);
-        }
+    [TestMethod]
+    public void WhenBookingARoomDatePeriodShouldBeDisplayedTest()
+    {
+        Browser.GoTo(Constants.AdminUrl);
 
-        [TestMethod]
-        public void WhenBookingARoomDatePeriodShouldBeDisplayedTest()
-        {
-            Browser.GoTo(Constants.AdminUrl);
+        Pages.LoginPage.Login();
+        Pages.AdminHeaderPage.GoToMenu(Helpers.Model.MenuItems.Report);
 
-            Pages.LoginPage.Login();
-            Pages.AdminHeaderPage.GoToMenu(Helpers.Model.MenuItems.Report);
-
-            var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
-            Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomNumber).Should().BeTrue();
-        }
+        var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
+        Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomNumber).Should().BeTrue();
+    }
 
 
-        [TestCleanup]
-        public override void TestCleanUp()
-        {
-            base.TestCleanUp();
-            Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
-        }
+    [TestCleanup]
+    public override void TestCleanUp()
+    {
+        base.TestCleanUp();
+        Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
     }
 }

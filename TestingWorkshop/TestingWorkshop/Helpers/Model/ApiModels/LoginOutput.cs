@@ -1,7 +1,6 @@
-﻿namespace TestingWorkshop.Helpers.Model.ApiModels
+﻿namespace TestingWorkshop.Helpers.Model.ApiModels;
+
+public class LoginOutput
 {
-    public class LoginOutput
-    {
-        public string token { get; set; }
-    }
+    public string token { get; set; }
 }
