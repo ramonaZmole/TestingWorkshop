@@ -46,6 +46,5 @@ namespace TestingWorkshop.Tests.Admin
             base.TestCleanUp();
             Client.CreateRequest($"{ApiResource.Room}/{_createRoomOutput.roomId}", Method.DELETE);
         }
-
     }
 }
