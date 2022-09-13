@@ -10,7 +10,7 @@ namespace TestingWorkshop.Helpers
         public static string GetLoginToken(this RestClient client)
         {
             var output = client.CreateRequest(ApiResource.Login, new LoginInput(), Method.POST).Content;
-            return JsonConvert.DeserializeObject<LoginOutput>(output).token;
+            return JsonConvert.DeserializeObject<LoginOutput>(output)?.token;
         }
 
         public static CreateRoomOutput CreateRoom(this RestClient client)
