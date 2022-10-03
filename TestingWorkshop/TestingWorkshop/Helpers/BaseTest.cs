@@ -14,7 +14,7 @@ public class BaseTest
     public readonly RestClient Client = RequestHelper.GetRestClient(Constants.Url);
 
     [TestInitialize]
-    public virtual void TestInitialize()
+    public virtual void Before()
     {
         SetClientToken();
         Browser.InitializeDriver(new DriverOptions
@@ -25,7 +25,7 @@ public class BaseTest
     }
 
     [TestCleanup]
-    public virtual void TestCleanUp()
+    public virtual void After()
     {
         if (TestContext.CurrentTestOutcome.Equals(UnitTestOutcome.Failed))
         {

@@ -4,7 +4,8 @@ using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkApi.RestSharp;
 using RestSharp;
 using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Model.ApiModels;
+using TestingWorkshop.Helpers.Models;
+using TestingWorkshop.Helpers.Models.ApiModels;
 
 namespace TestingWorkshop.Tests.Admin;
 
@@ -15,9 +16,9 @@ public class ReportTests : BaseTest
     private CreateBookingInput _bookingInput;
 
     [TestInitialize]
-    public override void TestInitialize()
+    public override void Before()
     {
-        base.TestInitialize();
+        base.Before();
         _createRoomOutput = Client.CreateRoom();
 
         _bookingInput = new CreateBookingInput
@@ -28,12 +29,12 @@ public class ReportTests : BaseTest
     }
 
     [TestMethod]
-    public void WhenBookingARoomDatePeriodShouldBeDisplayedTest()
+    public void WhenBookingARoom_DatePeriodShouldBeDisplayedTest()
     {
         Browser.GoTo(Constants.AdminUrl);
 
         Pages.LoginPage.Login();
-        Pages.AdminHeaderPage.GoToMenu(Helpers.Model.MenuItems.Report);
+        Pages.AdminHeaderPage.GoToMenu(Menu.Report);
 
         var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
         Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
@@ -41,9 +42,9 @@ public class ReportTests : BaseTest
 
 
     [TestCleanup]
-    public override void TestCleanUp()
+    public override void After()
     {
-        base.TestCleanUp();
+        base.After();
         var t = Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
     }
 }

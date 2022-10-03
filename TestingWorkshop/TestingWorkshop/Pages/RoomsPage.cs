@@ -2,7 +2,7 @@
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
-using TestingWorkshop.Helpers.Model;
+using TestingWorkshop.Helpers.Models;
 
 namespace TestingWorkshop.Pages;
 
@@ -29,21 +29,21 @@ public class RoomsPage
         WaitHelpers.ExplicitWait();
     }
 
-    public void FillForm(CreateRoomModel createRoomModel)
+    public void InsertRoomDetails(Room room)
     {
-        _roomNumberInput.ActionSendKeys(createRoomModel.RoomName);
-        _typeDropDown.SelectFromDropdownByText(createRoomModel.Type);
-        _accessibleDropDown.SelectFromDropdownByText(createRoomModel.Accessible);
-        _roomPriceInput.ActionSendKeys(createRoomModel.Price);
-        if (string.IsNullOrEmpty(createRoomModel.RoomDetails)) return;
-        _roomDetailsLabels.GetElements().First(x => x.Text == createRoomModel.RoomDetails).Click();
+        _roomNumberInput.ActionSendKeys(room.RoomName);
+        _typeDropDown.SelectFromDropdownByText(room.Type);
+        _accessibleDropDown.SelectFromDropdownByText(room.Accessible);
+        _roomPriceInput.ActionSendKeys(room.Price);
+        if (string.IsNullOrEmpty(room.RoomDetails)) return;
+        _roomDetailsLabels.GetElements().First(x => x.Text == room.RoomDetails).Click();
     }
 
-    public CreateRoomModel GetLastCreatedRoomDetails()
+    public Room GetLastRoomDetails()
     {
         var roomDetails = _lastRoomDetails.GetElements();
 
-        return new CreateRoomModel
+        return new Room
         {
             RoomName = roomDetails[0].Text,
             Type = roomDetails[1].Text,

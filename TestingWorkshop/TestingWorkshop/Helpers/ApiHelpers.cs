@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NsTestFrameworkApi.RestSharp;
 using RestSharp;
-using TestingWorkshop.Helpers.Model.ApiModels;
+using TestingWorkshop.Helpers.Models.ApiModels;
 
 namespace TestingWorkshop.Helpers;
 

@@ -5,7 +5,7 @@ using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Model;
+using TestingWorkshop.Helpers.Models;
 
 namespace TestingWorkshop.Pages;
 
@@ -30,24 +30,21 @@ public class Homepage
     private readonly By _errorMessages = By.CssSelector(".alert.alert-danger p");
     #endregion
 
-    public void ClickBookRoom()
-    {
-        _bookRoomButton.ActionClick();
-    }
+    public void BookRoom() => _bookRoomButton.ActionClick();
 
     public void CancelBooking() => _cancelBookingButton.ActionClick();
 
-    internal void CompleteBookingDetails(UserModel userModel)
+    internal void InsertBookingDetails(User user)
     {
-        _firstNameInput.ActionSendKeys(userModel.FirstName);
-        _lastNameInput.ActionSendKeys(userModel.LastName);
-        _emailInput.ActionSendKeys(userModel.Email);
-        _phoneInput.ActionSendKeys(userModel.ContactPhone);
+        _firstNameInput.ActionSendKeys(user.FirstName);
+        _lastNameInput.ActionSendKeys(user.LastName);
+        _emailInput.ActionSendKeys(user.Email);
+        _phoneInput.ActionSendKeys(user.ContactPhone);
 
         SelectDates();
     }
 
-    public void ClickBookThisRoom(string roomDescription)
+    public void BookThisRoom(string roomDescription)
     {
         var descriptions = _descriptions.GetElements();
         var index = descriptions.IndexOf(descriptions.First(x => x.Text == roomDescription));
@@ -81,10 +78,7 @@ public class Homepage
                && _cancelBookingButton.IsElementPresent();
     }
 
-    public bool IsCalendarDisplayed()
-    {
-        return _calendar.IsElementPresent();
-    }
+    public bool IsCalendarDisplayed() => _calendar.IsElementPresent();
 
     public List<string> GetErrorMessages()
     {

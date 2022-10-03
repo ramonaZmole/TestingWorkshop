@@ -5,18 +5,18 @@ using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using System.Linq;
 using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Model;
-using TestingWorkshop.Helpers.Model.ApiModels;
+using TestingWorkshop.Helpers.Models;
+using TestingWorkshop.Helpers.Models.ApiModels;
 
 namespace TestingWorkshop.Tests.Admin;
 
 [TestClass]
 public class CreateRoomTests : BaseTest
 {
-    private readonly CreateRoomModel _roomModel = new();
+    private readonly Helpers.Models.Room _roomModel = new();
 
     [TestMethod]
-    public void WhenCreatingARoomThenItShouldBeCreatedTest()
+    public void WhenCreatingARoom_ThenItShouldBeCreatedTest()
     {
         Browser.GoTo(Constants.AdminUrl);
 
@@ -25,29 +25,29 @@ public class CreateRoomTests : BaseTest
         Pages.RoomPage.CreateRoom();
         Pages.RoomPage.IsErrorMessageDisplayed().Should().BeTrue();
 
-        Pages.RoomPage.FillForm(_roomModel);
+        Pages.RoomPage.InsertRoomDetails(_roomModel);
         Pages.RoomPage.CreateRoom();
-        Pages.RoomPage.GetLastCreatedRoomDetails().Should().BeEquivalentTo(_roomModel);
+        Pages.RoomPage.GetLastRoomDetails().Should().BeEquivalentTo(_roomModel);
     }
 
     [TestMethod]
-    public void WhenCreatingRoomWithNoRoomDetailsNoFeaturesShouldBeDisplayedTest()
+    public void WhenCreatingRoomWithNoRoomDetails_NoFeaturesShouldBeDisplayedTest()
     {
         _roomModel.RoomDetails = string.Empty;
 
         Browser.GoTo(Constants.AdminUrl);
         Pages.LoginPage.Login();
 
-        Pages.RoomPage.FillForm(_roomModel);
+        Pages.RoomPage.InsertRoomDetails(_roomModel);
         Pages.RoomPage.CreateRoom();
-        Pages.RoomPage.GetLastCreatedRoomDetails().RoomDetails.Should().Be("No features added to the room");
+        Pages.RoomPage.GetLastRoomDetails().RoomDetails.Should().Be("No features added to the room");
     }
 
 
     [TestCleanup]
-    public override void TestCleanUp()
+    public override void After()
     {
-        base.TestCleanUp();
+        base.After();
         var response = Client.CreateRequest(ApiResource.Room);
         var roomsList = JsonConvert.DeserializeObject<GetRoomsOutput>(response.Content);
         if (roomsList == null) return;

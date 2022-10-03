@@ -4,8 +4,8 @@ using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using RestSharp;
 using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Model;
-using TestingWorkshop.Helpers.Model.ApiModels;
+using TestingWorkshop.Helpers.Models;
+using TestingWorkshop.Helpers.Models.ApiModels;
 
 namespace TestingWorkshop.Tests.Book;
 
@@ -15,9 +15,9 @@ public class BookingFormTests : BaseTest
     private CreateRoomOutput _createRoomOutput;
 
     [TestInitialize]
-    public override void TestInitialize()
+    public override void Before()
     {
-        base.TestInitialize();
+        base.Before();
 
         _createRoomOutput = Client.CreateRoom();
 
@@ -29,23 +29,23 @@ public class BookingFormTests : BaseTest
     }
 
     [TestMethod]
-    public void WhenBookingRoomErrorMessageShouldBeDisplayedTest()
+    public void WhenBookingRoom_ErrorMessageShouldBeDisplayedTest()
     {
         Browser.GoTo(Constants.Url);
 
-        Pages.HomePage.ClickBookThisRoom(_createRoomOutput.description);
-        Pages.HomePage.ClickBookRoom();
+        Pages.HomePage.BookThisRoom(_createRoomOutput.description);
+        Pages.HomePage.BookRoom();
         Pages.HomePage.GetErrorMessages().Should().BeEquivalentTo(Constants.FormErrorMessages);
 
-        Pages.HomePage.CompleteBookingDetails(new UserModel());
-        Pages.HomePage.ClickBookRoom();
+        Pages.HomePage.InsertBookingDetails(new User());
+        Pages.HomePage.BookRoom();
         Pages.HomePage.GetErrorMessages()[0].Should().Be(Constants.AlreadyBookedErrorMessage);
     }
 
     [TestCleanup]
-    public override void TestCleanUp()
+    public override void After()
     {
-        base.TestCleanUp();
+        base.After();
         Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestingWorkshop.Helpers.Model.ApiModels;
+namespace TestingWorkshop.Helpers.Models.ApiModels;
 
 public class BookingDates
 {

@@ -1,6 +1,6 @@
-﻿namespace TestingWorkshop.Helpers.Model;
+﻿namespace TestingWorkshop.Helpers.Models;
 
-public class UserModel
+public class User
 {
     public string FirstName { get; set; } = Faker.Name.First();
     public string LastName { get; set; } = Faker.Name.Last();

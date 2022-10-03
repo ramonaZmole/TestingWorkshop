@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace TestingWorkshop.Helpers.Model;
+namespace TestingWorkshop.Helpers.Models;
 
-public class CreateRoomModel
+public class Room
 {
     public string RoomName { get; set; } = Faker.RandomNumber.Next(0, 1000).ToString();
     public string Type { get; set; } = GetRoomType();

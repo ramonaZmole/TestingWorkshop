@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TestingWorkshop.Helpers.Model.ApiModels;
+namespace TestingWorkshop.Helpers.Models.ApiModels;
 
 public class Room
 {
