@@ -5,7 +5,6 @@ using NsTestFrameworkApi.RestSharp;
 using NsTestFrameworkUI.Helpers;
 using System.Linq;
 using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Models;
 using TestingWorkshop.Helpers.Models.ApiModels;
 
 namespace TestingWorkshop.Tests.Admin;
