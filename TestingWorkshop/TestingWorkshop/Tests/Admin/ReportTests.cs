@@ -36,7 +36,7 @@ public class ReportTests : BaseTest
         Pages.LoginPage.Login();
         Pages.AdminHeaderPage.GoToMenu(Menu.Report);
 
-     var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
+        var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
         Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
     }
 
