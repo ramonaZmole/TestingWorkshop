@@ -3,13 +3,11 @@ using System.Linq;
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Models;
 
 namespace TestingWorkshop.Pages;
 
-public class Homepage
+public class Homepage : CalendarPage
 {
     #region Selectors
 
@@ -49,17 +47,6 @@ public class Homepage
         var descriptions = _descriptions.GetElements();
         var index = descriptions.IndexOf(descriptions.First(x => x.Text == roomDescription));
         _bookRoomButtons.GetElements()[index].Click();
-    }
-
-    private static void SelectDates()
-    {
-        var actions = new Actions(Browser.WebDriver);
-
-        actions.ClickAndHold(Browser.WebDriver.FindElement(By.XPath($"//*[text()={Constants.BookingStartDay}] ")))
-            .MoveByOffset(10, 10)
-            .Release(Browser.WebDriver.FindElement(By.XPath($"//*[text()={Constants.BookingEndDay}] ")))
-            .Build()
-            .Perform();
     }
 
     public bool IsSuccessMessageDisplayed()

@@ -29,14 +29,14 @@ public class ReportTests : BaseTest
     }
 
     [TestMethod]
-    public void WhenBookingARoom_DatePeriodShouldBeDisplayedTest()
+    public void WhenViewingReports_BookedRoomsShouldBeDisplayedTest()
     {
         Browser.GoTo(Constants.AdminUrl);
 
         Pages.LoginPage.Login();
         Pages.AdminHeaderPage.GoToMenu(Menu.Report);
 
-        var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
+     var bookingName = $"{_bookingInput.firstname} {_bookingInput.lastname}";
         Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
     }
 
