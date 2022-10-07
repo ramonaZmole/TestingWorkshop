@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NsTestFrameworkUI.Helpers;
 using NsTestFrameworkUI.Pages;
 using OpenQA.Selenium;
@@ -67,9 +66,5 @@ public class Homepage : CalendarPage
 
     public bool IsCalendarDisplayed() => _calendar.IsElementPresent();
 
-    public List<string> GetErrorMessages()
-    {
-        WaitHelpers.ExplicitWait();
-        return _errorMessages.GetElements().Select(x => x.Text).ToList();
-    }
+ 
 }

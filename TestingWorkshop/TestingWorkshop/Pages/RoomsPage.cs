@@ -6,7 +6,7 @@ using TestingWorkshop.Helpers.Models;
 
 namespace TestingWorkshop.Pages;
 
-public class RoomsPage
+public class RoomsPage : BasePage
 {
     #region Selectors
 
@@ -16,10 +16,8 @@ public class RoomsPage
     private readonly By _accessibleDropDown = By.CssSelector("#accessible");
     private readonly By _roomPriceInput = By.CssSelector("#roomPrice");
     private readonly By _roomDetailsLabels = By.CssSelector(".form-check-label");
-    private readonly By _errorMessage = By.CssSelector(".alert ");
 
-    private readonly By _lastRoomDetails =
-        By.CssSelector("#root > div:nth-child(2) div:nth-last-child(2) .row.detail div");
+    private readonly By _lastRoomDetails = By.CssSelector("#root > div:nth-child(2) div:nth-last-child(2) .row.detail div");
 
     #endregion
 
@@ -51,13 +49,5 @@ public class RoomsPage
             Price = roomDetails[3].Text,
             RoomDetails = roomDetails[4].Text
         };
-    }
-
-    public bool IsErrorMessageDisplayed()
-    {
-        var errorMessage = _errorMessage.GetText();
-        return _errorMessage.IsElementPresent()
-               && errorMessage.Contains("must be greater than or equal to 1")
-               && errorMessage.Contains("Room name must be set");
     }
 }

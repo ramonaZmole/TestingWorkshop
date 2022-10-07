@@ -35,7 +35,13 @@ namespace TestingWorkshop.Tests.Admin
 
             Pages.LoginPage.Login();
             Pages.AdminHeaderPage.GoToMenu(Menu.Report);
-            Pages.ReportPage.BookRoom(user, room);
+
+            Pages.ReportPage.SelectDates();
+            Pages.ReportPage.Book();
+            Pages.ReportPage.IsErrorMessageDisplayed().Should().BeTrue();
+
+            Pages.ReportPage.InsertBookingDetails(user, room);
+            Pages.ReportPage.Book();
 
             var bookingName = $"{user.FirstName} {user.LastName}";
             Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();

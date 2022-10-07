@@ -29,14 +29,13 @@ public class ReportPage : CalendarPage
         }
     }
 
-    public void BookRoom(User user, Room room)
+    public void InsertBookingDetails(User user, Room room)
     {
-        SelectDates();
-
         _firstNameInput.ActionSendKeys(user.FirstName);
         _lastNameInput.ActionSendKeys(user.LastName);
         _roomDropdown.SelectFromDropdownByText(room.RoomName);
         _depositPaidDropdown.SelectFromDropdownByText("true");
-        _bookButton.ActionClick();
     }
+    public void Book() => _bookButton.ActionClick();
+
 }

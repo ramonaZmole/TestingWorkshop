@@ -5,9 +5,9 @@ using TestingWorkshop.Helpers;
 
 namespace TestingWorkshop.Pages
 {
-    public class CalendarPage
+    public class CalendarPage : BasePage
     {
-        protected static void SelectDates()
+        public void SelectDates()
         {
             var actions = new Actions(Browser.WebDriver);
 

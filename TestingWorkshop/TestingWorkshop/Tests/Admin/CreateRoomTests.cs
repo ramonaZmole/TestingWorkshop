@@ -23,6 +23,9 @@ public class CreateRoomTests : BaseTest
 
         Pages.RoomPage.CreateRoom();
         Pages.RoomPage.IsErrorMessageDisplayed().Should().BeTrue();
+        var errorMessages = Pages.RoomPage.GetErrorMessages();
+        errorMessages.Should().Contain("must be greater than or equal to 1");
+        errorMessages.Should().Contain("Room name must be set");
 
         Pages.RoomPage.InsertRoomDetails(_roomModel);
         Pages.RoomPage.CreateRoom();
