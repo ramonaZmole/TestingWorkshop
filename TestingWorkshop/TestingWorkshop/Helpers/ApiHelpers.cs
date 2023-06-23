@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using NsTestFrameworkApi.RestSharp;
 using RestSharp;
 using TestingWorkshop.Helpers.Models.ApiModels;
 

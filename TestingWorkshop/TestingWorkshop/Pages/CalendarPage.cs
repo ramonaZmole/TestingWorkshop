@@ -1,5 +1,4 @@
-﻿using NsTestFrameworkUI.Helpers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using TestingWorkshop.Helpers;
 

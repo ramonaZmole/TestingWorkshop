@@ -1,8 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NsTestFrameworkApi.RestSharp;
-using NsTestFrameworkUI.Helpers;
-using RestSharp;
+﻿using RestSharp;
 using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Models;
 using TestingWorkshop.Helpers.Models.ApiModels;

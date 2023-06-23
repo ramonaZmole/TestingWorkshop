@@ -1,8 +1,5 @@
 ﻿using System.IO;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NsTestFrameworkApi.RestSharp;
-using NsTestFrameworkUI.Helpers;
 using RestSharp;
 
 [assembly: Parallelize(Workers = 4, Scope = ExecutionScope.MethodLevel)]

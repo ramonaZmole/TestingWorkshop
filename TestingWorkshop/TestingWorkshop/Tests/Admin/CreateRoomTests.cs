@@ -1,8 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using NsTestFrameworkApi.RestSharp;
-using NsTestFrameworkUI.Helpers;
+﻿using Newtonsoft.Json;
 using System.Linq;
 using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Models.ApiModels;
