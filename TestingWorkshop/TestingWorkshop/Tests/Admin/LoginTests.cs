@@ -37,7 +37,7 @@ public class LoginTests : BaseTest
 
     private static IEnumerable<object[]> GetLoginScenarios()
     {
-        var dataFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Helpers\Data\LoginScenarios.csv";
+        var dataFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Helpers\Data\LoginData.csv";
 
         using var stream = new StreamReader(dataFilePath);
         using var reader = new CsvReader(stream, new CsvConfiguration(CultureInfo.CurrentCulture));
