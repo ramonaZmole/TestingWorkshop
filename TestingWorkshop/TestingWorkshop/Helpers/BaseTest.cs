@@ -19,6 +19,7 @@ public class BaseTest
             IsHeadless = true,
             ChromeDriverPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
         });
+        Browser.WebDriver.Manage().Window.Maximize();
     }
 
     [TestCleanup]
