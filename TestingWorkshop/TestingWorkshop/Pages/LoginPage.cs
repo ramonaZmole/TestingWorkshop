@@ -14,10 +14,19 @@ public class LoginPage
 
     #endregion
 
-    public void Login()
+    public void Login(string username = "", string password = "")
     {
-        _usernameInput.ActionSendKeys(Constants.Username);
-        _passwordInput.ActionSendKeys(Constants.Password);
+        if (username == string.Empty || password == string.Empty)
+        {
+            _usernameInput.ActionSendKeys(Constants.Username);
+            _passwordInput.ActionSendKeys(Constants.Password);
+        }
+        else
+        {
+            _usernameInput.ActionSendKeys(username);
+            _passwordInput.ActionSendKeys(password);
+        }
+
         _loginButton.ActionClick();
         WaitHelpers.ExplicitWait();
     }

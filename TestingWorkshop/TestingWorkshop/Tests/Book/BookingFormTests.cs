@@ -1,5 +1,4 @@
-﻿using RestSharp;
-using TestingWorkshop.Helpers;
+﻿using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Models;
 using TestingWorkshop.Helpers.Models.ApiModels;
 
@@ -29,19 +28,20 @@ public class BookingFormTests : BaseTest
     {
         Browser.GoTo(Constants.Url);
 
-        Pages.HomePage.BookThisRoom(_createRoomOutput.description);
-        Pages.HomePage.BookRoom();
-        Pages.HomePage.GetErrorMessages().Should().BeEquivalentTo(Constants.FormErrorMessages);
+        Pages.Homepage.BookThisRoom(_createRoomOutput.description);
+        Pages.Homepage.BookRoom();
+        Pages.Homepage.GetErrorMessages().Should().BeEquivalentTo(Messages.FormErrorMessages);
 
-        Pages.HomePage.InsertBookingDetails(new User());
-        Pages.HomePage.BookRoom();
-        Pages.HomePage.GetErrorMessages()[0].Should().Be(Constants.AlreadyBookedErrorMessage);
+        Pages.Homepage.InsertBookingDetails(new User());
+        Pages.Homepage.BookRoom();
+        Pages.Homepage.GetErrorMessages()[0].Should().Be(Messages.AlreadyBookedErrorMessage);
     }
 
     [TestCleanup]
     public override void After()
     {
         base.After();
-        Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
+
+        Client.DeleteRoom(_createRoomOutput.roomid);
     }
 }

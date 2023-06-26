@@ -1,4 +1,4 @@
-﻿namespace TestingWorkshop.Helpers.Models;
+﻿namespace TestingWorkshop.Helpers.Models.Enum;
 
 public enum Menu
 {

@@ -23,7 +23,13 @@ public class Homepage : CalendarPage
     private readonly By _successMessage = By.CssSelector(".col-sm-6.text-center > h3");
     private readonly By _bookRoomButtons = By.CssSelector(".openBooking");
 
-    private readonly By _errorMessages = By.CssSelector(".alert.alert-danger p");
+    private readonly By _nameInput = By.CssSelector("#name");
+    private readonly By _contactEmailInput = By.CssSelector("#email");
+    private readonly By _contactPhoneInput = By.CssSelector("#phone");
+    private readonly By _subjectInput = By.CssSelector("#subject");
+    private readonly By _messageInput = By.CssSelector("#description");
+    private readonly By _submitContactButton = By.CssSelector("#submitContact");
+
     #endregion
 
     public void BookRoom() => _bookRoomButton.ActionClick();
@@ -65,5 +71,15 @@ public class Homepage : CalendarPage
 
     public bool IsCalendarDisplayed() => _calendar.IsElementPresent();
 
- 
+    public void SendMessage(ContactForm formData)
+    {
+        _nameInput.ActionSendKeys(formData.Name);
+        _contactEmailInput.ActionSendKeys(formData.Email);
+        _contactPhoneInput.ActionSendKeys(formData.Phone);
+        _subjectInput.ActionSendKeys(formData.Subject);
+        _messageInput.ActionSendKeys(formData.Message);
+
+        _submitContactButton.ActionClick();
+    }
+
 }

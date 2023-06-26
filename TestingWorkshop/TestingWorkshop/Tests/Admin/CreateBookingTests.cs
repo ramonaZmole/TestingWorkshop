@@ -1,54 +1,56 @@
-﻿using RestSharp;
-using TestingWorkshop.Helpers;
+﻿using TestingWorkshop.Helpers;
 using TestingWorkshop.Helpers.Models;
 using TestingWorkshop.Helpers.Models.ApiModels;
+using TestingWorkshop.Helpers.Models.Enum;
 using Room = TestingWorkshop.Helpers.Models.Room;
 
-namespace TestingWorkshop.Tests.Admin
+namespace TestingWorkshop.Tests.Admin;
+
+[TestClass]
+public class CreateBookingTests : BaseTest
 {
-    [TestClass]
-    public class CreateBookingTests : BaseTest
+    private CreateRoomOutput _createRoomOutput;
+    private readonly User _user = new();
+    private Room _room = new();
+
+    [TestInitialize]
+    public override void Before()
     {
-        private CreateRoomOutput _createRoomOutput;
-        private User user = new();
-        private Room room;
+        base.Before();
 
-        [TestInitialize]
-        public override void Before()
+        _createRoomOutput = Client.CreateRoom();
+
+        _room = new Room
         {
-            base.Before();
-            _createRoomOutput = Client.CreateRoom();
-            room = new Room
-            {
-                RoomName = _createRoomOutput.roomName.ToString()
-            };
-        }
+            RoomName = _createRoomOutput.roomName.ToString()
+        };
+    }
 
-        [TestMethod]
-        public void WhenBookingARoom_BookingShouldBeDisplayedTest()
-        {
-            Browser.GoTo(Constants.AdminUrl);
+    [TestMethod]
+    public void WhenBookingARoom_BookingShouldBeDisplayedTest()
+    {
+        Browser.GoTo(Constants.AdminUrl);
 
-            Pages.LoginPage.Login();
-            Pages.AdminHeaderPage.GoToMenu(Menu.Report);
+        Pages.LoginPage.Login();
+        Pages.AdminHeaderPage.GoToMenu(Menu.Report);
 
-            Pages.ReportPage.SelectDates();
-            Pages.ReportPage.Book();
-            Pages.ReportPage.IsErrorMessageDisplayed().Should().BeTrue();
+        Pages.ReportPage.SelectDates();
+        Pages.ReportPage.Book();
+        Pages.ReportPage.IsErrorMessageDisplayed().Should().BeTrue();
 
-            Pages.ReportPage.InsertBookingDetails(user, room);
-            Pages.ReportPage.Book();
+        Pages.ReportPage.InsertBookingDetails(_user, _room);
+        Pages.ReportPage.Book();
 
-            var bookingName = $"{user.FirstName} {user.LastName}";
-            Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
-        }
+        var bookingName = $"{_user.FirstName} {_user.LastName}";
+        Pages.ReportPage.IsBookingDisplayed(bookingName, _createRoomOutput.roomName).Should().BeTrue();
+    }
 
 
-        [TestCleanup]
-        public override void After()
-        {
-            base.After();
-            var t = Client.CreateRequest($"{ApiResource.Room}{_createRoomOutput.roomid}", Method.DELETE);
-        }
+    [TestCleanup]
+    public override void After()
+    {
+        base.After();
+
+        Client.DeleteRoom(_createRoomOutput.roomid);
     }
 }

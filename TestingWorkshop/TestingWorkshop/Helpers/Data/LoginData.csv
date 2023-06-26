@@ -1,0 +1,3 @@
+Username,Password,IsLoggedIn
+admin,password,true
+invalidUser,invalidPassword,false

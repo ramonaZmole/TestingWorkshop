@@ -35,6 +35,7 @@ public class ReportPage : CalendarPage
         _roomDropdown.SelectFromDropdownByText(room.RoomName);
         _depositPaidDropdown.SelectFromDropdownByText("true");
     }
+
     public void Book() => _bookButton.ActionClick();
 
 }

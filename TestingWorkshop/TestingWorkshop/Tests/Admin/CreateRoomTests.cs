@@ -1,17 +1,21 @@
-﻿using Newtonsoft.Json;
-using System.Linq;
-using TestingWorkshop.Helpers;
-using TestingWorkshop.Helpers.Models.ApiModels;
+﻿using TestingWorkshop.Helpers;
+using TestingWorkshop.Helpers.Models.Enum;
+using Room = TestingWorkshop.Helpers.Models.Room;
 
 namespace TestingWorkshop.Tests.Admin;
 
 [TestClass]
 public class CreateRoomTests : BaseTest
 {
-    private readonly Helpers.Models.Room _roomModel = new();
+    private Room _roomModel = new();
 
+    [DataRow(RoomType.Double)]
+    [DataRow(RoomType.Family)]
+    [DataRow(RoomType.Single)]
+    [DataRow(RoomType.Suite)]
+    [DataRow(RoomType.Twin)]
     [TestMethod]
-    public void WhenCreatingARoom_ThenItShouldBeCreatedTest()
+    public void WhenCreatingARoom_ThenItShouldBeCreatedTest(RoomType roomType)
     {
         Browser.GoTo(Constants.AdminUrl);
 
@@ -23,6 +27,10 @@ public class CreateRoomTests : BaseTest
         errorMessages.Should().Contain("must be greater than or equal to 1");
         errorMessages.Should().Contain("Room name must be set");
 
+        _roomModel = new Room
+        {
+            Type = roomType.ToString()
+        };
         Pages.RoomPage.InsertRoomDetails(_roomModel);
         Pages.RoomPage.CreateRoom();
         Pages.RoomPage.GetLastRoomDetails().Should().BeEquivalentTo(_roomModel);
@@ -46,10 +54,7 @@ public class CreateRoomTests : BaseTest
     public override void After()
     {
         base.After();
-        var response = Client.CreateRequest(ApiResource.Room);
-        var roomsList = JsonConvert.DeserializeObject<GetRoomsOutput>(response.Content);
-        if (roomsList == null) return;
-        var id = roomsList.rooms.First(x => x.roomName == int.Parse(_roomModel.RoomName)).roomid;
-        Client.CreateRequest($"{ApiResource.Room}{id}", RestSharp.Method.DELETE);
+
+        Client.DeleteRoom(_roomModel.RoomName);
     }
 }
