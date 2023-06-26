@@ -26,7 +26,7 @@ public class LoginTests : BaseTest
 
     [DynamicData(nameof(GetLoginScenarios), DynamicDataSourceType.Method)]
     [TestMethod]
-    public void LoginAsAdminScenarios(LoginData loginData)
+    public void LoginAsAdmin(LoginData loginData)
     {
         Browser.GoTo(Constants.AdminUrl);
 
